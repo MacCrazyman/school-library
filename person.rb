@@ -4,7 +4,7 @@ class Person
   attr_accessor :name, :age
 
   def initialize(age, name = 'unknown', parent_permission = true)
-    @corrector = Corrector.new()
+    @corrector = Corrector.new
     @name = validate_name(name)
     @age = age
     @parent_permission = parent_permission
