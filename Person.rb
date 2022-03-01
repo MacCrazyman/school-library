@@ -14,15 +14,8 @@ class Person
 
   private
 
-  # Method of name `is_of_age` is marked as invalid by rubocop
+  # Method name `is_of_age` is marked as invalid by rubocop
   def of_age?
     @age >= 18
   end
 end
-
-# leo = Person.new 16, 'Leonardo', true
-# p leo.can_use_services?
-# p leo.name
-# p leo.age
-# p leo.id
-# p leo.parent_permission

@@ -12,10 +12,3 @@ class Student < Person
     "¯\(ツ)/¯"
   end
 end
-
-# leo = Student.new(16, 'hello', 'leonardo', false)
-# p leo.classroom
-# p leo.can_use_services?
-# p leo.name
-# p leo.age
-# p leo.play_hooky
