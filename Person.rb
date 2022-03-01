@@ -14,6 +14,7 @@ class Person
 
   private
 
+  # Method of name `is_of_age` is marked as invalid by rubocop
   def of_age?
     @age >= 18
   end
