@@ -1,9 +1,11 @@
+require './corrector'
 class Person
   attr_reader :id
   attr_accessor :name, :age
 
   def initialize(age, name = 'unknown', parent_permission = true)
-    @name = name
+    @corrector = Corrector.new
+    @name = validate_name(name)
     @age = age
     @parent_permission = parent_permission
   end
@@ -13,6 +15,10 @@ class Person
   end
 
   private
+
+  def validate_name(name)
+    @corrector.correct_name(name)
+  end
 
   # Method name `is_of_age` is marked as invalid by rubocop
   def of_age?
