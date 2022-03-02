@@ -3,12 +3,13 @@ class Classroom
 
   def initialize(label)
     @label = label
-    private
     @students = []
   end
 
   def add_student(student)
-    @students << student
-    student.classroom = self
+    unless @students.include?(student)
+      @students << student 
+      student.classroom = self
+    end
   end
 end
