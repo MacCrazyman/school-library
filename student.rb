@@ -1,16 +1,10 @@
 require_relative 'person'
 
 class Student < Person
-  attr_reader :classroom
+  attr_accessor :classroom
 
   def initialize(age, classroom, name = 'unknown', parent_permission = true)
     super(age, name, parent_permission)
-    @classroom = classroom
-    classroom.add_student(self)
-  end
-
-  def classroom=(classroom)
-    @classroom = classroom
     classroom.add_student(self)
   end
 
@@ -18,3 +12,4 @@ class Student < Person
     "¯\(ツ)/¯"
   end
 end
+
