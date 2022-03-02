@@ -1,5 +1,4 @@
 require_relative 'person'
-require_relative 'classroom'
 
 class Student < Person
   attr_reader :classroom
@@ -19,9 +18,3 @@ class Student < Person
     "¯\(ツ)/¯"
   end
 end
-
-class1 = Classroom.new('class1')
-p class1
-leonardo = Student.new(18,class1, 'LeonardoPareja')
-p leonardo
-p class1
