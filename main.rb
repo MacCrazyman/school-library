@@ -4,6 +4,7 @@ require './classroom'
 require './rental'
 require './student'
 require './teacher'
+require 'date'
 
 class App
   attr_accessor :books, :people, :rentals
@@ -31,9 +32,7 @@ class App
       specialization = gets.chomp
       @people << Teacher.new(person_age,specialization,person_name)
     end
-    print '----------'
-    print 'Person created '
-    print '----------'
+    print " \n ---------- \n Person created \n ---------- \n \n "
   end
 
   def create_book
@@ -42,9 +41,7 @@ class App
     print 'Book author: '
     book_author = gets.chomp
     @books << Book.new(book_title,book_author)
-    print '----------'
-    print 'Book created'
-    print '----------'
+    print " \n ---------- \n Book created \n ---------- \n \n "
 
   end
   def create_rental
@@ -56,9 +53,7 @@ class App
     person_id = gets.chomp.to_i
 
     @rentals << Rental.new(DateTime.now,@books[book_id],@people[person_id])
-    print '----------'
-    print "Rental created..."
-    print '----------'
+    print " \n ---------- \n Rental created \n ---------- \n \n "
 
   end
   def list_books
@@ -82,20 +77,20 @@ def main
     '6 - List all rentals for a given person id',
     '7 - Exit']
   functions = {
-    '1' => -> {app.list_books()},
-    '2' => -> {app.list_people()},
-    '3' => -> {app.create_person()},
-    '4' => -> {app.create_book()},
-    '5' => -> {app.create_rental()},
-    '6' => -> {app.list_rentals()},
-    '7' => -> {puts 'Thanks for using the service'}
+    1 => -> {app.list_books()},
+    2 => -> {app.list_people()},
+    3 => -> {app.create_person()},
+    4 => -> {app.create_book()},
+    5 => -> {app.create_rental()},
+    6 => -> {app.list_rentals()},
+    7 => -> {puts 'Thanks for using the service'}
   }
   execution = nil
 
-  while execution != '7'
+  while execution != 7
     puts main_text
-    execution = gets.chomp
-    functions[execution].()
+    execution = gets.chomp.to_i
+    functions[execution].() if execution.between?(1,7)
   end
   
 end
