@@ -1,13 +1,36 @@
 #!/usr/bin/env ruby
+require './book'
+require './classroom'
+require './rental'
+require './student'
+require './teacher'
+
 class App
   attr_accessor :books, :people, :rentals
   def initialize
     @books = ['book 1', 'book 2']
     @people = ['person 1', 'person 2']
-    @rentals = [' rental 1', 'rental 2']
+    @rentals = ['rental 1', 'rental 2']
+    @class1 = Classroom.new('class 1')
   end
 
   def create_person
+    print 'Plase choose one option (1) for student / (2) for teacher: '
+    person_type = gets.chomp
+    print 'Age: '
+    person_age = gets.chomp
+    print 'Name: '
+    person_name = gets.chomp
+    if person_type == '1'
+      print 'Has parent permission? [Y/N]: '
+      permission = gets.chomp.downcase() == 'y' true : false
+      @people << Student.new(person_age,@class1,person_name,permission)
+    end
+    if person_type == '2'
+      print 'Specialization: '
+      specialization = gets.chomp
+      @people << Teacher.new(person_age,specialization,person_name)
+    end
   end
   def create_book
   end
@@ -17,9 +40,10 @@ class App
     puts @books
   end
   def list_people
-    puts 'world'
+    puts @people
   end
   def list_rentals
+    puts @rentals
   end
 end
 def main
