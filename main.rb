@@ -8,9 +8,9 @@ require './teacher'
 class App
   attr_accessor :books, :people, :rentals
   def initialize
-    @books = ['book 1', 'book 2']
-    @people = ['person 1', 'person 2']
-    @rentals = ['rental 1', 'rental 2']
+    @books = []
+    @people = []
+    @rentals = []
     @class1 = Classroom.new('class 1')
   end
 
@@ -18,7 +18,7 @@ class App
     print 'Plase choose one option (1) for student / (2) for teacher: '
     person_type = gets.chomp
     print 'Age: '
-    person_age = gets.chomp
+    person_age = gets.chomp.to_i
     print 'Name: '
     person_name = gets.chomp
     if person_type == '1'
@@ -42,8 +42,24 @@ class App
     print 'Book author: '
     book_author = gets.chomp
     @books << Book.new(book_title,book_author)
+    print '----------'
+    print 'Book created'
+    print '----------'
+
   end
   def create_rental
+    print "Select one book from the following list: \n"
+    @books.each_with_index {|book, index| print "#{index} ) - #{book.title} \n"}
+    book_id = gets.chomp.to_i
+    print "Select a person from the list: \n"
+    @people.each_with_index {|person, index| print "#{index} ) - #{person.name} \n"}
+    person_id = gets.chomp.to_i
+
+    @rentals << Rental.new(DateTime.now,@books[book_id],@people[person_id])
+    print '----------'
+    print "Rental created..."
+    print '----------'
+
   end
   def list_books
     puts @books
