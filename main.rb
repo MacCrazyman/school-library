@@ -23,7 +23,7 @@ class App
     person_name = gets.chomp
     if person_type == '1'
       print 'Has parent permission? [Y/N]: '
-      permission = gets.chomp.downcase() == 'y' true : false
+      permission = gets.chomp.downcase() == 'y' ? true : false
       @people << Student.new(person_age,@class1,person_name,permission)
     end
     if person_type == '2'
@@ -31,8 +31,17 @@ class App
       specialization = gets.chomp
       @people << Teacher.new(person_age,specialization,person_name)
     end
+    print '----------'
+    print 'Person created '
+    print '----------'
   end
+
   def create_book
+    print 'Book title: '
+    book_title = gets.chomp
+    print 'Book author: '
+    book_author = gets.chomp
+    @books << Book.new(book_title,book_author)
   end
   def create_rental
   end
