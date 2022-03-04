@@ -8,4 +8,8 @@ class Rental
     @person = person
     person.rentals << self
   end
+
+  def to_s
+    "[Rental] - Date: #{@date} | Book: #{@book} | Person: #{@person}"
+  end
 end
