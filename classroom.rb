@@ -7,7 +7,7 @@ class Classroom
   end
 
   def to_s
-    "#{@label}"
+    @label.to_s
   end
 
   def add_student(student)

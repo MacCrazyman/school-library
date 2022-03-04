@@ -12,5 +12,4 @@ class Rental
   def to_s
     "[Rental] - Date: #{@date} | Book: #{@book} | Person: #{@person}"
   end
-
 end
