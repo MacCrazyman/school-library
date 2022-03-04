@@ -6,6 +6,10 @@ class Classroom
     @students = []
   end
 
+  def to_s
+    "#{@label}"
+  end
+
   def add_student(student)
     return if @students.include?(student)
 
