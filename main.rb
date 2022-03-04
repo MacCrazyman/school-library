@@ -16,12 +16,12 @@ class App
     @rentals = []
     @class1 = Classroom.new('class 1')
     @functions = {
-      1 => -> { app.list_books },
-      2 => -> { app.list_people },
-      3 => -> { app.create_person },
-      4 => -> { app.create_book },
-      5 => -> { app.create_rental },
-      6 => -> { app.list_rentals },
+      1 => -> { list_books },
+      2 => -> { list_people },
+      3 => -> { create_person },
+      4 => -> { create_book },
+      5 => -> { create_rental },
+      6 => -> { list_rentals },
       7 => -> { puts 'Thanks for using the service' }
     }
   end
