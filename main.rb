@@ -62,7 +62,7 @@ class App
     @people.each_with_index { |person, index| print "#{index} ) - #{person.name} \n" }
     person_id = gets.chomp.to_i
 
-    @rentals << Rental.new(DateTime.now, @books[book_id], @people[person_id])
+    @rentals << Rental.new(DateTime.now, @books[book_id], @people[person_id].name)
     print " \n ---------- \n Rental created \n ---------- \n \n "
   end
 
