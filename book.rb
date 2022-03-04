@@ -9,7 +9,7 @@ class Book
   end
 
   def to_s
-    "[Book] - Title: #{@title}  Author: #{@author}"
+    "[Book] - Title: #{@title} | Author: #{@author}"
   end
 
   def add_rental(date, person)

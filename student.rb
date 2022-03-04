@@ -8,6 +8,10 @@ class Student < Person
     classroom.add_student(self)
   end
 
+  def to_s
+    "[Student] - Name: #{@name} | Age: #{@age} | Classroom: #{@classroom}"
+  end
+
   def play_hooky
     "¯\(ツ)/¯"
   end
