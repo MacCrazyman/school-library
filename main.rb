@@ -63,7 +63,10 @@ class App
     puts @people
   end
   def list_rentals
-    puts @rentals
+    print "Select a person from the list: \n"
+    @people.each_with_index {|person, index| print "#{index} ) - #{person.name} \n"}
+    person_id = gets.chomp.to_i
+    puts @rentals.select {|rental| rental.person == @people[person_id]}
   end
 end
 def main
