@@ -1,6 +1,5 @@
 require './app'
 
-
 def main
   main_text = ['Please chooshe an option by enterin a number',
                '1 - List all books',
