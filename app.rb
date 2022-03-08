@@ -5,13 +5,20 @@ require './student'
 require './teacher'
 require 'date'
 require 'json'
+require 'pry'
 
 class App
   attr_accessor :books, :people, :rentals
   attr_reader :main_text, :functions
 
   def initialize
-    @books = []
+    file = File.read('./book.json')
+    data_hash = JSON.parse(file)
+    
+    @books = data_hash
+
+    binding.pry
+
     @people = []
     @rentals = []
     @class1 = Classroom.new('class 1')
