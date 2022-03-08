@@ -4,6 +4,7 @@ require './rental'
 require './student'
 require './teacher'
 require 'date'
+require 'json'
 
 class App
   attr_accessor :books, :people, :rentals
@@ -21,8 +22,15 @@ class App
       4 => -> { create_book },
       5 => -> { create_rental },
       6 => -> { list_rentals },
-      7 => -> { puts 'Thanks for using the service' }
+      7 => -> { store_data }
     }
+  end
+
+  def store_data
+
+    File.write('./book.json', JSON.generate(@books))
+    puts 'Thanks for using the service'
+
   end
 
   def create_person
