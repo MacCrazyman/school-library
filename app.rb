@@ -13,12 +13,8 @@ class App
 
   def initialize
     file = File.read('./book.json')
-    data_hash = JSON.parse(file)
-    
-    @books = data_hash
-
-    binding.pry
-
+    data_hash = JSON.parse(file)   
+    @books = data_hash.map{|book| Book.new(book["title"],book["author"])}
     @people = []
     @rentals = []
     @class1 = Classroom.new('class 1')
