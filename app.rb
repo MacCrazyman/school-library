@@ -27,8 +27,11 @@ class App
   end
 
   def store_data
+    
+    data_hash = @books.map{ |book| book.to_json }
 
-    File.write('./book.json', JSON.generate(@books))
+    File.write('./book.json', JSON.dump(data_hash))
+
     puts 'Thanks for using the service'
 
   end

@@ -12,6 +12,10 @@ class Book
     "[Book] - Title: #{@title} | Author: #{@author}"
   end
 
+  def to_json
+    {"title": @title, "author": @author}
+  end
+
   def add_rental(date, person)
     Rental.new(date, self, person)
   end
