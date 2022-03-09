@@ -12,8 +12,8 @@ class Student < Person
     "[Student] - Name: #{@name} | Age: #{@age} | Classroom: #{@classroom}"
   end
 
-  def to_json
-    {"name": @name, "age": @age, "parent_permission": @parent_permission, "type": "student"}
+  def to_json(*_args)
+    { name: @name, age: @age, parent_permission: @parent_permission, type: 'student' }
   end
 
   def play_hooky

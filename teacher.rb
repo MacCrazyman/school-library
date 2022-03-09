@@ -12,8 +12,8 @@ class Teacher < Person
     "[Teacher] - Name: #{@name} | Age: #{@age} | Specialization: #{@specialization}"
   end
 
-  def to_json
-    {"name": @name, "age": @age, "type": "teacher", "specialization": @specialization}
+  def to_json(*_args)
+    { name: @name, age: @age, type: 'teacher', specialization: @specialization }
   end
 
   def can_use_services?

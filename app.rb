@@ -16,7 +16,8 @@ class App
     @people = []
     @rentals = []
     @class1 = Classroom.new('class 1')
-    check_files
+    check_books_and_people
+    check_rentals
     @functions = {
       1 => -> { list_books },
       2 => -> { list_people },
@@ -29,32 +30,44 @@ class App
   end
 
   def store_data
-    
-    File.write('./book.json', JSON.pretty_generate(@books.map{ |book| book.to_json }))
-    
-    File.write('./person.json', JSON.pretty_generate(@people.map{ |person| person.to_json }))
-    
-    File.write('./rentals.json', JSON.pretty_generate(@rentals.map{ |rental| rental.to_json }))
+    File.write('./book.json', JSON.pretty_generate(@books.map(&:to_json)))
+
+    File.write('./person.json', JSON.pretty_generate(@people.map(&:to_json)))
+
+    File.write('./rentals.json', JSON.pretty_generate(@rentals.map(&:to_json)))
 
     puts 'Thanks for using the service'
-
   end
 
-  def check_files
-    if File.exists?("./book.json")
-      JSON.parse(File.read('./book.json')).each{|book| @books << Book.new(book["title"],book["author"])}
+  def check_books_and_people
+    if File.exist?('./book.json')
+      JSON.parse(File.read('./book.json')).each { |book| @books << Book.new(book['title'], book['author']) }
     end
 
-    if File.exists?("./person.json")
-      JSON.parse(File.read('./person.json')).each do |person|
-        @people << Student.new(person["age"],@class1,person["name"],person["parent_permission"]) if person["type"] == "student"
-        @people << Teacher.new(person["age"],person["specialization"],person["name"]) if person["type"] == "teacher"
+    return unless File.exist?('./person.json')
+
+    JSON.parse(File.read('./person.json')).each do |person|
+      if person['type'] == 'student'
+        @people << Student.new(person['age'], @class1, person['name'],
+                               person['parent_permission'])
       end
+      @people << Teacher.new(person['age'], person['specialization'], person['name']) if person['type'] == 'teacher'
     end
+  end
 
-    # binding.pry
-    if File.exists?("./rentals.json")
-      JSON.parse(File.read('./rentals.json')).each{|rental| @rentals << Rental.new(rental["date"], @books.select { |book| book.title == rental["book"]["title"] && book.author == rental["book"]["author"]  }[0], @people.select { |person| person.name == rental["person"]["name"] && person.age == rental["person"]["age"]  }[0] )}
+  def check_rentals
+    return unless File.exist?('./rentals.json')
+
+    JSON.parse(File.read('./rentals.json')).each do |rental|
+      @rentals << Rental.new(rental['date'], @books.select do |book|
+                                               rental_title = rental['book']['title']
+                                               rental_author = rental['book']['author']
+                                               book.title == rental_title && book.author == rental_author
+                                             end [0], @people.select do |person|
+                                                        rental_name = rental['person']['name']
+                                                        rental_age = rental['person']['age']
+                                                        person.name == rental_name && person.age == rental_age
+                                                      end [0])
     end
   end
 
