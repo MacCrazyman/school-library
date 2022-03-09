@@ -12,12 +12,6 @@ describe Student do
     end
   end
 
-  describe 'Check student age' do
-    it 'return the student age ' do
-      @student.age.should eql 24
-    end
-  end
-
   describe 'Check student name' do
     it 'return the student name ' do
       @student.name.should eql 'Student 1'
@@ -27,6 +21,12 @@ describe Student do
   describe 'Check student parent permission' do
     it 'return the student permission ' do
       expect(@student.can_use_services?).to be true
+    end
+  end
+
+  describe 'Check student classroom' do
+    it 'returns the classroom label' do
+      @student.classroom.label.should eql :classroom
     end
   end
 end
