@@ -4,6 +4,8 @@ require './rental'
 require './student'
 require './teacher'
 require 'date'
+require 'json'
+require 'pry'
 
 class App
   attr_accessor :books, :people, :rentals
@@ -14,6 +16,8 @@ class App
     @people = []
     @rentals = []
     @class1 = Classroom.new('class 1')
+    check_books_and_people
+    check_rentals
     @functions = {
       1 => -> { list_books },
       2 => -> { list_people },
@@ -21,8 +25,50 @@ class App
       4 => -> { create_book },
       5 => -> { create_rental },
       6 => -> { list_rentals },
-      7 => -> { puts 'Thanks for using the service' }
+      7 => -> { store_data }
     }
+  end
+
+  def store_data
+    File.write('./book.json', JSON.pretty_generate(@books.map(&:to_json)))
+
+    File.write('./person.json', JSON.pretty_generate(@people.map(&:to_json)))
+
+    File.write('./rentals.json', JSON.pretty_generate(@rentals.map(&:to_json)))
+
+    puts 'Thanks for using the service'
+  end
+
+  def check_books_and_people
+    if File.exist?('./book.json')
+      JSON.parse(File.read('./book.json')).each { |book| @books << Book.new(book['title'], book['author']) }
+    end
+
+    return unless File.exist?('./person.json')
+
+    JSON.parse(File.read('./person.json')).each do |person|
+      if person['type'] == 'student'
+        @people << Student.new(person['age'], @class1, person['name'],
+                               person['parent_permission'])
+      end
+      @people << Teacher.new(person['age'], person['specialization'], person['name']) if person['type'] == 'teacher'
+    end
+  end
+
+  def check_rentals
+    return unless File.exist?('./rentals.json')
+
+    JSON.parse(File.read('./rentals.json')).each do |rental|
+      @rentals << Rental.new(rental['date'], @books.select do |book|
+                                               rental_title = rental['book']['title']
+                                               rental_author = rental['book']['author']
+                                               book.title == rental_title && book.author == rental_author
+                                             end [0], @people.select do |person|
+                                                        rental_name = rental['person']['name']
+                                                        rental_age = rental['person']['age']
+                                                        person.name == rental_name && person.age == rental_age
+                                                      end [0])
+    end
   end
 
   def create_person
