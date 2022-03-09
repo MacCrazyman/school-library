@@ -1,14 +1,26 @@
 [
   {
-    "name": "St",
+    "name": "Leo",
+    "age": 23,
+    "parent_permission": true,
+    "type": "student"
+  },
+  {
+    "name": "Sdfds",
     "age": 34,
     "parent_permission": true,
     "type": "student"
   },
   {
-    "name": "Stu2",
-    "age": 26,
-    "parent_permission": true,
-    "type": "student"
+    "name": "Mre",
+    "age": 34,
+    "type": "teacher",
+    "specialization": "fdas"
+  },
+  {
+    "name": "Sdf",
+    "age": 45,
+    "type": "teacher",
+    "specialization": "bdd"
   }
 ]

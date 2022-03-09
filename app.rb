@@ -46,6 +46,7 @@ class App
     if File.exists?("./person.json")
       JSON.parse(File.read('./person.json')).each do |person|
         @people << Student.new(person["age"],@class1,person["name"],person["parent_permission"]) if person["type"] == "student"
+        @people << Teacher.new(person["age"],person["specialization"],person["name"]) if person["type"] == "teacher"
       end
     end
   end

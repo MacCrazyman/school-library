@@ -13,12 +13,6 @@ class Person
     @rentals = []
   end
 
-  def to_json
-    if self.class == Student 
-      {"name": @name, "age": @age, "parent_permission": @parent_permission, "type": "student"}
-    end
-  end
-
   def can_use_services?
     of_age? || @parent_permission
   end
