@@ -10,4 +10,16 @@ describe Book do
       @book.should be_an_instance_of Book
     end
   end
+
+  describe 'checking the title' do
+    it 'returns the rigth title' do
+      @book.title.should eql 'title 1'
+    end
+  end
+
+  describe 'checking the author' do
+    it 'returns the rigth author' do
+      @book.author.should eql 'author 1'
+    end
+  end
 end
