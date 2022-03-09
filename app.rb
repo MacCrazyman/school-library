@@ -33,6 +33,8 @@ class App
     File.write('./book.json', JSON.pretty_generate(@books.map{ |book| book.to_json }))
     
     File.write('./person.json', JSON.pretty_generate(@people.map{ |person| person.to_json }))
+    
+    File.write('./rentals.json', JSON.pretty_generate(@rentals.map{ |rental| rental.to_json }))
 
     puts 'Thanks for using the service'
 
@@ -48,6 +50,11 @@ class App
         @people << Student.new(person["age"],@class1,person["name"],person["parent_permission"]) if person["type"] == "student"
         @people << Teacher.new(person["age"],person["specialization"],person["name"]) if person["type"] == "teacher"
       end
+    end
+
+    # binding.pry
+    if File.exists?("./rentals.json")
+      JSON.parse(File.read('./rentals.json')).each{|rental| @rentals << Rental.new(rental["date"], @books.select { |book| book.title == rental["book"]["title"] && book.author == rental["book"]["author"]  }[0], @people.select { |person| person.name == rental["person"]["name"] && person.age == rental["person"]["age"]  }[0] )}
     end
   end
 

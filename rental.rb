@@ -12,4 +12,9 @@ class Rental
   def to_s
     "[Rental] - Date: #{@date} | Book: #{@book} | Person: #{@person}"
   end
+
+  def to_json
+    {"date": @date, "book": @book.to_json, "person": @person.to_json}
+  end
+
 end
