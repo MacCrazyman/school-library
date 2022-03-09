@@ -15,8 +15,8 @@ class App
     @books = []
     @people = []
     @rentals = []
-    check_files
     @class1 = Classroom.new('class 1')
+    check_files
     @functions = {
       1 => -> { list_books },
       2 => -> { list_people },
@@ -31,6 +31,8 @@ class App
   def store_data
     
     File.write('./book.json', JSON.pretty_generate(@books.map{ |book| book.to_json }))
+    
+    File.write('./person.json', JSON.pretty_generate(@people.map{ |person| person.to_json }))
 
     puts 'Thanks for using the service'
 
@@ -39,6 +41,12 @@ class App
   def check_files
     if File.exists?("./book.json")
       JSON.parse(File.read('./book.json')).each{|book| @books << Book.new(book["title"],book["author"])}
+    end
+
+    if File.exists?("./person.json")
+      JSON.parse(File.read('./person.json')).each do |person|
+        @people << Student.new(person["age"],@class1,person["name"],person["parent_permission"]) if person["type"] == "student"
+      end
     end
   end
 
