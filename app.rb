@@ -12,11 +12,10 @@ class App
   attr_reader :main_text, :functions
 
   def initialize
-    file = File.read('./book.json')
-    data_hash = JSON.parse(file)   
-    @books = data_hash.map{|book| Book.new(book["title"],book["author"])}
+    @books = []
     @people = []
     @rentals = []
+    check_files
     @class1 = Classroom.new('class 1')
     @functions = {
       1 => -> { list_books },
@@ -31,12 +30,16 @@ class App
 
   def store_data
     
-    data_hash = @books.map{ |book| book.to_json }
-
-    File.write('./book.json', JSON.dump(data_hash))
+    File.write('./book.json', JSON.pretty_generate(@books.map{ |book| book.to_json }))
 
     puts 'Thanks for using the service'
 
+  end
+
+  def check_files
+    if File.exists?("./book.json")
+      JSON.parse(File.read('./book.json')).each{|book| @books << Book.new(book["title"],book["author"])}
+    end
   end
 
   def create_person
